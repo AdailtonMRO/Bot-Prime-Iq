@@ -108,7 +108,7 @@ print(' ---------------------------')
 API.change_balance(input(' ESCOLHA OPERAR EM PRACTICE OU REAL (ESCREVA APENAS EM MAIÚSCULO): '))
 print(' ---------------------------')
 print(' ---------------------------')
-print(Back.GREEN +''' SUA BANCA: $',banca()''')
+print(Back.GREEN +''' SUA BANCA: $''',banca())
 print(' ---------------------------')
 print(' ---------------------------')
 
