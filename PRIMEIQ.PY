@@ -17,6 +17,8 @@ logging.disable(level=(logging.DEBUG))
 
 init(convert=True, autoreset=True)
 
+
+
 def perfil():
 	perfil = json.loads(json.dumps(API.get_profile_ansyc()))
 	return perfil['result']
@@ -57,13 +59,27 @@ def Payout(par):
 	
 	return d
 
+print(Fore.BLUE +'''
+-----------------------------------------------------------------------------
+|      _______  _______ _________ _______  _______   _________ _______      |
+|     (  ____ )(  ____ )\__   __/(       )(  ____ \  \__   __/(  ___  )     |
+|     | (    )|| (    )|   ) (   | () () || (    \/     ) (   | (   ) |     |
+|     | (____)|| (____)|   | |   | || || || (__         | |   | |   | |     |
+|     |  _____)|     __)   | |   | |(_)| ||  __)        | |   | |   | |     |
+|     | (      | (\ (      | |   | |   | || (           | |   | | /\| |     |
+|     | )      | ) \ \_____) (___| )   ( || (____/\  ___) (___| (_\ \ |     |
+|     |/       |/   \__/\_______/|/     \|(_______/  \_______/(____\/_)     |
+|                                                                           | 
+-----------------------------------------------------------------------------                                                               
+''')
+print(Fore.RED +'''  Todas as estratégias e investimentos envolvem risco de perda. 
+  Nenhuma informação contida neste produto deve ser interpretada como uma garantia de resultados.\n''')
 print(' -----------------------------')
 print(' -----------------------------')
 print(' OLÁ, SEJA BEM-VIDO AO PRIME IQ!')
 print(Back.RED +''' VERFIQUE SE O RELÓGIO DE SEU PC ESTÁ SINCRONIZADO COM A DA IQ OPTION.''')
 print(' -----------------------------')
 print(' -----------------------------')
-
 print(Back.BLUE +' POR SEGURANÇA SUA SENHA ESTARÁ INVISÍVEL.')
 API = IQ_Option(input(' DIGITE SEU EMAIL: '),getpass(' DIGITE SUA SENHA DA IQ: '))
 print(' -----------------------------')
@@ -84,34 +100,21 @@ def perfil():
 	# chama a função e salva o retorno em uma variavel x
 x = perfil()
 	# imprime somente o campo informado
-print(' ---------------------------')
-print(' ---------------------------')
+
 print(' SEU ID:', x['user_id'])
 print(' BEM VINDO(A):', x['name'])
 print(' ---------------------------')
 print(' ---------------------------')
-while True:
-	try:
-		tipo_de_conta = int(input(' ESCOLHA O TIPO DE CONTA (DIGITE O NÚMERO DE UMA DAS OPÇÕES E APERTE ENTER): \n  1-) REAL\n  2-) TREINAMENTO\n  R.: '))
-			
-		if tipo_de_conta > 0 and tipo_de_conta < 3 : break
-	except:
-		print(Fore.RED + '\n OPÇÃO INEXISTENTE.')
-	
-	if tipo_de_conta == 1:
-		API.change_balance('REAL')
-
-	if tipo_de_conta == 2:
-		API.change_balance('PRACTICE')
+API.change_balance(input(' ESCOLHA OPERAR EM PRACTICE OU REAL (ESCREVA APENAS EM MAIÚSCULO): '))
 print(' ---------------------------')
 print(' ---------------------------')
-print(' SUA BANCA: $',banca())
+print(Back.GREEN +''' SUA BANCA: $',banca()''')
 print(' ---------------------------')
 print(' ---------------------------')
 
 while True:
 	try:
-		operacao = int(input(' VAI OPERAR EM QUAL? (DIGITE O NÚMERO DE UMA DAS OPÇÕES E APERTE ENTER): \n  1-) DIGITAL\n  2-) BINÁRIA\n  R.: '))
+		operacao = int(input(' DIGITE O NÚMERO 1 E APERTE ENTER): \n\n  1-) DIGITAL\n  R.: '))
 			
 		if operacao > 0 and operacao < 3 : break
 	except:
@@ -143,38 +146,46 @@ if operacao == 1:
 	for paridade in pares['digital']:
 		if pares['digital'][paridade]['open'] == True:
 			print(' ',paridade+' | PAYOUT: '+str(payout(paridade, 'digital')))
-
-if operacao == 2:
-	print(' PARIDADES ABERTAS NA BINÁRIA: \n')
-	for paridade in pares['turbo']:
-		if pares['turbo'][paridade]['open'] == True:
-			print(' ',paridade+' | PAYOUT: '+str(payout(paridade, 'turbo')))
-
-par = input('\n COLOQUE UMA PARIDADE PARA OPERAR (EX.: EURJPY) SE FOR EM OTC COLOQUE "-OTC" NO FINAL: ').upper()
-
+print(' -----------------------------')
+print(' -----------------------------')
+par = input(' COLOQUE UMA PARIDADE PARA OPERAR (EX.: EURJPY) SE FOR EM OTC COLOQUE "-OTC" NO FINAL: ').upper()
+print(' -----------------------------')
+print(' -----------------------------')
 while True:
 	try:
-		estrategia = int(input('\n QUAL ESTRATÉGIA UTILIZAR? \n  [1] MHI DE MEIO CICLO \n  [2] MHI 1\n  [3] MHI 2\n  [4] MHI 3\n  [5] TRÊS VIZINHOS\n  [6] FIVEFLIP\n  [7] MILHÃO\n  [8] TORRE GÊMEAS\n  R.: '))
+		estrategia = int(input(' QUAL ESTRATÉGIA UTILIZAR? \n\n  [1] MHI DE MEIO CICLO (O PADRÃO É MINORIA)\n  [2] MHI 1\n  [3] MHI 2\n  [4] MHI 3\n  [5] TRÊS VIZINHOS (O PADRÃO É MAIORIA)\n  [6] FIVEFLIP (O PADRÃÓ É MINORIA)\n  [7] MILHÃO\n  [8] TORRE GÊMEAS (O PADRÃO É MAIORIA)\n   R.: '))
 			
 		if estrategia > 0 and estrategia < 9 : break
 	except:
 		print(Fore.RED + '\n OPÇÃO INEXISTENTE.')
-
+print(' -----------------------------')
+print(' -----------------------------')
 while True:
 	try:
-		alternativa = int(input('\n ESCOLHA OPERAR ENTRE MAIORIA OU MINORIA (DIGITE O NÚMERO DE UMA DAS OPÇÕES E APERTE ENTER) :\n  1-) MINORIA\n  2-) MAIORIA\n  R.: '))
+		alternativa = int(input(' ESCOLHA OPERAR ENTRE MAIORIA OU MINORIA (DIGITE O NÚMERO DE UMA DAS OPÇÕES E APERTE ENTER) :\n  1-) MINORIA\n  2-) MAIORIA\n  R.: '))
 			
 		if alternativa > 0 and alternativa < 3 : break
 	except:
 		print(Fore.RED + '\n OPÇÃO INEXISTENTE.')
-
-valor_entrada = float(input('\n COLOQUE O VALOR DA SUA ENTRADA: '))
+print(' -----------------------------')
+print(' -----------------------------')
+valor_entrada = float(input(' COLOQUE O VALOR DA SUA ENTRADA: '))
 valor_entrada_b = float(valor_entrada)
-stop_loss = float(input('\n COLOQUE SUA META DE STOP LOSS: '))
-stop_win = float(input('\n COLOQUE SUA META DE STOP WIN: '))
-martingale = int(input('\n QUANTOS MARTINGALES? : '))
+print(' -----------------------------')
+print(' -----------------------------')
+stop_loss = float(input(' COLOQUE SUA META DE STOP LOSS: '))
+print(' -----------------------------')
+print(' -----------------------------')
+stop_win = float(input(' COLOQUE SUA META DE STOP WIN: '))
+print(' -----------------------------')
+print(' -----------------------------')
+martingale = int(input(' QUANTOS MARTINGALES? : '))
 martingale += 1
-print(Fore.YELLOW + '\n CARREGANDO CONFIGURAÇÕES...')
+print(' -----------------------------')
+print(' -----------------------------')
+print(Fore.YELLOW + ' CARREGANDO CONFIGURAÇÕES...')
+print(' -----------------------------')
+print(' -----------------------------')
 lucro = 0
 payout = Payout(par)
 while True:
